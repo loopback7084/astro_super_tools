@@ -4,3 +4,5 @@ The SUPER IMG from your device.
 Unlocked Bootloader
 DMVerity Disabled on VBMETA, VBMETA_SYSTEM, VBMETA_VENDOR
 
+MTKClient:-
+For extracting the device firmware: https://github.com/bkerler/mtkclient
