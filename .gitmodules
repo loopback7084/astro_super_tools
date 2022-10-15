@@ -1,3 +1,6 @@
 [submodule "ext/otatools"]
 	path = ext/otatools
 	url = https://github.com/LonelyFool/lpunpack_and_lpmake
+[submodule "ext/mtkclient"]
+	path = ext/mtkclient
+	url = https://github.com/bkerler/mtkclient
