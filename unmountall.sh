@@ -1,19 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-umount ./system
-umount ./vendor
-umount ./product
+set -euo pipefail
 
-rmdir system
-rmdir product
-rmdir vendor
+TMPDIR="./tmp-$$"
+FW_SLOT="${1:-_a}"
+cd "${TMPDIR}"
 
-e2fsck -yf system_a.img
-e2fsck -yf vendor_a.img
-e2fsck -yf product_a.img
-resize2fs -M system_a.img
-resize2fs -M vendor_a.img
-resize2fs -M product_a.img
-e2fsck -yf system_a.img
-e2fsck -yf vendor_a.img
-e2fsck -yf product_a.img
+umount -v ./system
+umount -v ./vendor
+umount -v ./product
+
+e2fsck -fy system"${FW_SLOT}".img
+e2fsck -fy vendor"${FW_SLOT}".img
+e2fsck -fy product"${FW_SLOT}".img
+resize2fs -M system"${FW_SLOT}".img
+resize2fs -M vendor"${FW_SLOT}".img
+resize2fs -M product"${FW_SLOT}".img
+e2fsck -fy system"${FW_SLOT}".img
+e2fsck -fy vendor"${FW_SLOT}".img
+e2fsck -fy product"${FW_SLOT}".img
