@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-TMPDIR="./tmp-$$"
+TMPDIR="./tmp"
 FW_SLOT="${1:-_a}"
 cd "${TMPDIR}"
 
