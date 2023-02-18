@@ -49,6 +49,8 @@ UNWANTED=(./system/system/app/agenda
     ./system/system/apex/com.google.android.cellbroadcast.apex
     ./system/system/app/GooglePrintRecommendationService)
 
+cd tmp
+
 for app in "${UNWANTED[@]}"; do
     rm -rf "${app}"
 done
