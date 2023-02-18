@@ -13,7 +13,7 @@ git clone https://github.com/bkerler/mtkclient -b 1.9
 
 ## Prepare your device:
 
-- Create a full backup of your device using the MTKClient, either through the GUI using `python mtk_gui` or through `python mtk rl out`.
+- Create a full backup of your device using the MTKClient, either through either the GUI: `python mtk_gui` or the CLI: `python mtk rl out`.
 - Unlock your bootloader:
     - Enable and open 'Developer Options'.
     - Enable 'USB debugging' and 'OEM Unlocking'.
@@ -28,13 +28,19 @@ fastboot --disable-verity --disable-verification flash vbmeta_system_b vbmeta_sy
 fastboot --disable-verity --disable-verification flash vbmeta_vendor_a vbmeta_vendor_a.bin
 fastboot --disable-verity --disable-verification flash vbmeta_vendor_a vbmeta_vendor_b.bin
 ```
-- Download the `super.img` from your device using MTKClient.
+- Download the `super.img` from your device using MTKClient or use the `super.bin` file from your backup (renamed to `super.img`).
 
 ## Use the scripts:
 
-- `./init.sh`                                  # set -eu 
-- `./ext/otatools/bin/lpunpack super.img .     # extract super
-- `./mountall.sh`                              # mount partitions into /tmp
-- `./safe-debloat.sh`                          # remove bloatware
-- `./unmountall.sh`                            # unmount partitions and remove /tmp
-- `./remake.sh`                                # remake your super into super.new.img
+- The scripts are used in following order. Note that `safe-debloat.sh` is not required, you can make your own modifications at that point.
+```
+./init.sh                                      # set -eu 
+./ext/otatools/bin/lpunpack super.img .        # extract super
+./mountall.sh                                  # mount partitions into /tmp
+
+# Make your own modifications to the partition(s). Or remove bloatware using the optional script: ./safe-debloat.sh
+
+./unmountall.sh                                # unmount partitions and remove /tmp
+./remake.sh                                    # remake your super into super.new.img
+```
+- Flash the remade `super.new.img` using either the GUI: `python mtk_gui` or the CLI: `python mtk w super super.new.img`.
