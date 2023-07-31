@@ -5,13 +5,15 @@
 # unused
 # oldsize=6442450944
 
+FW_SLOT="${1:-a}"
+
 declare -i sizepro
 declare -i sizeven
 declare -i sizesys
 
-sizepro=$( stat -c %s product_a.img )
-sizeven=$( stat -c %s vendor_a.img )
-sizesys=$( stat -c %s system_a.img )
+sizepro=$( stat -c %s product_"${FW_SLOT}".img )
+sizeven=$( stat -c %s vendor_"${FW_SLOT}".img )
+sizesys=$( stat -c %s system_"${FW_SLOT}".img )
 newsize=$((sizepro+sizeven+sizesys+sizesys))
 
 ./ext/otatools/bin/lpmake \
@@ -20,14 +22,14 @@ newsize=$((sizepro+sizeven+sizesys+sizesys))
      --metadata-slots 2 \
      --device super:6442450944 \
      --group main:${newsize} \
-     --partition product_a:readonly:"${sizepro}":main \
-        --image product_a=./product_a.img \
+     --partition product_"${FW_SLOT}":readonly:"${sizepro}":main \
+        --image product_"${FW_SLOT}"=./product_a.img \
      --partition product_b:readonly:0:main \
-     --partition vendor_a:readonly:"${sizeven}":main \
-        --image vendor_a=./vendor_a.img \
+     --partition vendor_"${FW_SLOT}":readonly:"${sizeven}":main \
+        --image vendor_"${FW_SLOT}"=./vendor_a.img \
      --partition vendor_b:readonly:0:main \
-     --partition system_a:readonly:"${sizesys}":main \
-        --image system_a=./system_a.img \
+     --partition system_"${FW_SLOT}":readonly:"${sizesys}":main \
+        --image system_"${FW_SLOT}"=./system_a.img \
      --partition system_b:readonly:0:main \
      --sparse \
      --output ./super.new.img
