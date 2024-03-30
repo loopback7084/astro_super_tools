@@ -6,12 +6,12 @@
 ```
 git clone https://github.com/loopback7084/astro_super_tools
 ```
-- Download OTATools (https://drive.google.com/file/d/1h4sGXNI1Al5Y_Te9T8xMWrp3mHw1tke-/view), unpack and place in `astro_super_tools/ext/otatools`.
-- Clone mtkclient and place into `astro_super_tools/ext/mtkclient`: 
+
+Initialise submodules. They should both be locked to known-working versions.
+
 ```
-cd astro_super_tools/ext
-rm -rf mtkclient
-git clone https://github.com/bkerler/mtkclient -b 1.9
+cd astro_super_tools/
+git submodule update --init --recursive
 ```
 
 ## Prepare your device:
@@ -53,4 +53,8 @@ fastboot flash super super.new.img
 
 ### Sidenote regarding MTKClient and fastboot:
 
-MTKClient creates flashable backups of your devices and is able to restore these backups through the write option. However, it is not able to properly flash modified super images due to limitations in how it handles spare filesystems. Therefore it is recommended to use `fastboot` when flashing any images to your device, and using MTKClient only for backup.
+MTKClient creates flashable backups of your devices and is able to restore
+these backups through the write option. However, it is not able to properly
+flash modified super images due to limitations in how it handles spare
+filesystems. Therefore it is recommended to use `fastboot` when flashing sparse
+images to your device, and using MTKClient only for backup.
